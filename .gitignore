@@ -1,0 +1,11 @@
+#ignore everything
+*
+#but matlab files
+!*.m
+
+#ignore all vfeat files
+vfeat/
+
+#ignore data files
+assignment1data/
+assignment2data/
