@@ -4,7 +4,7 @@ im2= imread('cube2.jpg');
 
 %% find features 
 [f1 d1]=vl_sift(single(rgb2gray(im1)),'PeakThresh',1);
-[f2 d2]=vl_sift(single(rgb2gray(im2)),'PeakThresh',2);
+[f2 d2]=vl_sift(single(rgb2gray(im2)),'PeakThresh',1);
 
 %% plot image and features
 figure;
@@ -38,6 +38,7 @@ hold off ;
 
 PlotResults_3
 
+
 %% set up and solve the final DLT
 X=[];
 for i=1:length(x1)
@@ -47,21 +48,26 @@ for i=1:length(x1)
     X=[X v(1:4,:)];
 end
 
+%sort out bad matches
 xproj1 = pflat(P1*X );
 xproj2 = pflat(P2*X );
-% good_points = (sqrt(sum(( x1 - xproj1(1:2 ,:)).^2)) < 3 & sqrt( sum(( x2 - xproj2(1:2 ,:)).^2)) < 3);
-% X = X (: , good_points );
+good_points = (sqrt(sum(( x1 - xproj1(1:2 ,:)).^2)) < 3 & sqrt( sum(( x2 - xproj2(1:2 ,:)).^2)) < 3);
+X = X (: , good_points );
 
 X=pflat(X);
+%plot reconstructed 3D-points
 figure;
 plot3(X(1,:),X(2,:),X(3,:),'.b','Markersize',2);
 hold on;
 plotcams({P1,P2})
-plot3 ([Xmodel(1,startind);Xmodel(1,endind)],[Xmodel(2,startind);Xmodel(2,endind)],[Xmodel(3,startind);Xmodel(3,endind)],'b-');
+plot3([Xmodel(1,startind);Xmodel(1,endind)],[Xmodel(2,startind);Xmodel(2,endind)],[Xmodel(3,startind);Xmodel(3,endind)],'r-');
+grid on;
 axis equal
 hold off;
+title('Reconstructed 3D-Points aswell as provided 3D-points')
 axis equal;
 
+%Plot projected 3D-points in the two images
 xproj1=P1*X;
 xproj1=pflat(xproj1);
 figure;
@@ -70,6 +76,7 @@ hold on;
 plot(xproj1(1,:),xproj1(2,:),'+g');
 plot(x1(1,:),x1(2,:),'ro')
 hold off;
+legend('projected points','image feature points')
 
 xproj2=P2*X;
 xproj2=pflat(xproj2);
@@ -79,3 +86,4 @@ hold on;
 plot(xproj2(1,:),xproj2(2,:),'+g');
 plot(x2(1,:),x2(2,:),'ro')
 hold off;
+legend('projected points','image feature points')
