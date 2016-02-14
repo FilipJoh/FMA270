@@ -11,13 +11,6 @@ Pproj=P{ImageNbr};
 projPoints=Pproj*projPoints;
 
 projPoints=pflat(projPoints);
-% for i=1:size(projPoints,2)
-%     if ~isnan(points(:,i))
-%        projPoints(:,i)=projPoints(:,i)./projPoints(end,i);
-%     else
-%        projPoints(:,i)=NaN; 
-%     end
-% end
 im=imread(imfiles{ImageNbr});
 visible=isfinite(x{ImageNbr}(1,:));
 
@@ -28,6 +21,7 @@ hold on
 plot(points(1,:),points(2,:),'+b','Markersize',5)
 plot(projPoints(1,visible),projPoints(2,visible),'or','Markersize',5)
 title('image points and projected points')
+legend('image points','projected image points')
 hold off
 
 %% Construct 3d-plot
@@ -35,9 +29,9 @@ figure;
 plot3(X(1,:),X(2,:),X(3,:),'.b','Markersize',2)
 hold on
 plotcams(P)
-% hold off
 grid on
 title('3D reconstruction')
+legend('3D points','Camera position and directions')
 axis equal
 
 %% create and apply T1
@@ -63,6 +57,7 @@ ylabel('Y')
 zlabel('Z')
 grid on
 title('3D reconstruction, T1 applied')
+legend('3D points','Camera position and directions')
 axis([-4 13 -2 8 0 50])
 %% create and apply T2
 
@@ -86,6 +81,7 @@ ylabel('Y')
 zlabel('Z')
 grid on
 title('3D reconstruction, T2 applied')
+legend('3D points','Camera position and directions')
 axis([-4 13 -2 15 0 50])
 
 %% Project 3d points to camera
@@ -101,6 +97,7 @@ plot(projPoints(1,visible),projPoints(2,visible),'or','Markersize',5)
 plot(projT1(1,visible),projT1(2,visible),'+b','Markersize',5)
 hold off
 title('projected points 3D points with and without T applied')
+legend('image points','projected image points')
 %likewise for T2
 
 
