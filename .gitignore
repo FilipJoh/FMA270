@@ -1,7 +1,9 @@
 #ignore everything
 *
 #but matlab files
-!*.m
+!*/*.m
+!.gitignore
+
 
 #ignore all vfeat files
 vfeat/
@@ -9,3 +11,4 @@ vfeat/
 #ignore data files
 assignment1data/
 assignment2data/
+assignment3data/
