@@ -16,12 +16,12 @@ N2=[1/std2(1) 0 -meanx2(1)/std2(1); 0 1/std2(2) -meanx2(2)/std2(2); 0 0 1];
 
 %% Normalize points
 
-xtilde{1}=N1*x{1};
-xtilde{2}=N2*x{2};
+xtilde{1}=pflat(N1*x{1});
+xtilde{2}=pflat(N2*x{2});
 
 %% Create M matrix
 
-M=createM(xtilde);
+M=createM(xtilde)%,x1n,x2n);
 
 %apply SVD
 [U,S,V]=svd(M);
@@ -36,14 +36,19 @@ norm(M*v)
 
 %create normalized fundamental matrix
 Fn=reshape(v,[3 3])
+[U,S,V]=svd(Fn);
+S(3,3)=0;
+Fn=U*S*V';
+
 
 %check determinant
 det(Fn)
 
 %unnormalize F
 plot(diag(xtilde{2}(:,:)'*Fn*xtilde{1}(:,:)))
-%
-F=N2'*Fn*N1
+
+F=N2'*Fn*N1;
+F=F./F(end);
 
 %% project x1 to x2
 
