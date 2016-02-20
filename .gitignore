@@ -6,8 +6,8 @@
 !*/
 
 
-#ignore all vfeat files
-vfeat/*
+#ignore all vlfeat files
+vlfeat/*
 assignment1/*
 !assignment1/exports/*
 
