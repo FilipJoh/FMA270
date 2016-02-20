@@ -7,7 +7,7 @@
 
 
 #ignore all vlfeat files
-vlfeat/*
+assignment2/vlfeat/*
 assignment1/*
 !assignment1/exports/*
 
