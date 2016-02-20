@@ -59,9 +59,11 @@ r=randi(length(x{1}), 20,1);
 
 %% plot stuff
 
+figure;
 imshow(im2);
+colormap gray;
 hold on;
-plot(x{2}(1,r),x{2}(2,r),'b.','Markersize',70)
+plot(x{2}(1,r),x{2}(2,r),'b+','Markersize',40)
 rital(l(:,r));
 hold off
 
