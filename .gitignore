@@ -7,7 +7,10 @@
 
 
 #ignore all vfeat files
-vfeat/
+vfeat/*
+assignment1/*
+!assignment1/exports/*
+
 
 #ignore data files
 assignment1data/
