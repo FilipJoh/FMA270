@@ -1,6 +1,6 @@
 %% create camera matrices and subdivide
 P1=[eye(3) zeros(3,1)];
-P2=[1 1 1 2; 0 2 0 2; 0 0 1 0];
+P2=[1 1 0 0; 0 2 0 2; 0 0 1 0];
 t=P2(:,end);
 A=P2(:,1:3);
 
@@ -26,14 +26,9 @@ x{2}=[2;0;1];
 x{3}=[2;1;1];
 x{4}=[4;2;1];
 
-%create epipolar lines for each point in camera 2
+%create epiloar lines for each points in camera 2
 l=cell(4,1);
 for i=1:4
     l{i}=F*x{i};
     l{i}=pflat(l{i});
 end
-
-%verifaction of F
-e2'*F
-F*e1
-
