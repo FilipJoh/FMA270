@@ -17,6 +17,7 @@ P1=[eye(3) [0 0 0]'];
 
 P1n=K*P1;
 isInFront = {};
+X={};
 for i=1:4
     X{i}=Triang(xtilde,P1,P_2{i});    
     X{i}=pflat(X{i});

@@ -84,7 +84,7 @@ legend('image points','epipolar lines')
 %Plot distribution of the distance between epipolar lines are the corresponding image points 
 figure;
 hist(abs(sum(l.*x{2})),100);
-title('Histogram over the distribution of distance between image points and their corresponding epipolar line')
+title('Distribution of distance between image points and their corresponding epipolar line')
 xlabel('distance between the epipolar line and the corresponding image point')
 ylabel('number of image points')
 %mean error

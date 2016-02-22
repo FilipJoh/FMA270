@@ -1,7 +1,6 @@
 %% load data
 
 PlotResults_1
-%close all;
 load('CompEx3data');
 
 
@@ -23,7 +22,7 @@ else
     V = -V;
     E = U*diag([1 1 0])*V';
 end
-
+disp('Epipolar constraints with essential matrix')
 xtilde{2}(:,1)'*E*xtilde{1}(:,1)
 
 F1=(K')\E/K;
@@ -42,10 +41,16 @@ figure;
 imshow(im2);
 colormap gray;
 hold on;
-plot(x{2}(1,r),x{2}(2,r),'b+','Markersize',40)
-rital(l(:,r));
+plot(x{2}(1,r),x{2}(2,r),'g+','Markersize',30)
+rital(l(:,r),'k');
 hold off
+legend('image points','epipolar lines')
+
 
 figure;
 hist(abs(sum(l.*x{2})),100);
+title('Distribution of distance between image points and their corresponding epipolar line')
+xlabel('distance between the epipolar line and the corresponding image point')
+ylabel('number of image points')
+
 meanD2=mean(abs(sum(l.*x{2})))

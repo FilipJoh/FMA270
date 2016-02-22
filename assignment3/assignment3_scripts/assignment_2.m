@@ -31,6 +31,8 @@ l=cell(4,1);
 for i=1:4
     l{i}=F*x{i};
     l{i}=pflat(l{i});
+    disp(['point projected on line' num2str(i)])
+    l{1}'*x{i}
 end
 
 %verifaction of F
