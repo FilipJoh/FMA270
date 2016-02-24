@@ -29,6 +29,7 @@ x{4}=[4;2;1];
 %create epiloar lines for each points in camera 2
 l=cell(4,1);
 for i=1:4
+    %Check if image points correspond to the line.
     l{i}=F*x{i};
     l{i}=pflat(l{i});
     disp(['point projected on line' num2str(i)])

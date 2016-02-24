@@ -27,6 +27,8 @@ xtilde{2}(:,1)'*E*xtilde{1}(:,1)
 
 F1=(K')\E/K;
 
+E=E./E(end)
+
 
 %% project x1 to x2
 
