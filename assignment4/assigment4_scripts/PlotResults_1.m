@@ -3,6 +3,8 @@ clear all;
 clc;
 %close all;
 load('CompEx1data')
+im1=imread('house1.jpg');
+im2=imread('house2.jpg');
 
 %% construct action matrix
 
@@ -60,24 +62,7 @@ Pnorm{2}=K\P{2};
 R=Pnorm{2}(1:3,1:3);
 t=Pnorm{2}(:,4);
 pi=pflat(plane_inliers);
-H = (R-t*pi(1:3)')
-% 
-% 
-% % create M matrix
-%     M=zeros(size(v,2)*3,3*size(v,1)+size(v,2));
-% for i=1:size(v,2)
-%     M(3*(i-1)+1,1:size(v,1))=[v(:,i)]';
-%     M(3*(i-1)+2,size(v,1)+1:2*size(v,1))=[v(:,i)]';
-%     M(3*i,2*size(v,1)+1:3*size(v,1))=[v(:,i)]';
-%     M(3*(i-1)+1:3*i,size(v,1).^2+i)=-u(:,i);
-% end
-% 
-% % perfom svd
-% 
-% [U,S,V]=svd(M);
-% vsolution=(V(:,end));
-% H=[vsolution(1:3)';vsolution(4:6)';vsolution(7:9)'];
-% H=H./H(end);
+H = (R-t*pi(1:3)');
 
 homo=pflat(H*v);
 up=K*u;
@@ -86,8 +71,10 @@ vp=K*homo;
 mean(mean(vp-up))
 
 figure;
-plot(up(1,:),up(2,:),'ro');
+imshow(im2);
 hold on
+plot(up(1,:),up(2,:),'bo');
+
 plot(vp(1,:),vp(2,:),'g+')
 axis equal
 hold off
