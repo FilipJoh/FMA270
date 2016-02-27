@@ -5,8 +5,10 @@ function [ plane, erms ] = leastSq(X)
 
     % compute eigenvalues
     [V,D]=eig(M);
-    abc=V(:,1)';
-    plane=[abc -abc*meanX(1:3)]';
+    abc=V(:,1);
+    d= -abc'*meanX(1:3);
+    %plane=[abc -abc*meanX(1:3)]';
+    plane=[abc; d];
     plane = plane ./ norm(plane(1:3));
 
     %compute RMS
