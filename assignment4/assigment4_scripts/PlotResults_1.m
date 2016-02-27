@@ -1,7 +1,7 @@
 %% load data
 clear all;
 clc;
-close all;
+%close all;
 load('CompEx1data')
 
 %% construct action matrix
@@ -9,18 +9,6 @@ load('CompEx1data')
 X=pflat(X);
 [plane,erms]=leastSq(X);
 erms
-% meanX=mean(X,2);
-% Xtilde=(X-repmat(meanX,[1,size(X,2)]));
-% M= Xtilde(1:3,:)*Xtilde(1:3,:)' ;
-% 
-% % compute eigenvalues
-% [V,D]=eig(M);
-% abc=V(:,1)';
-% plane=[abc -abc*meanX(1:3)]';
-% 
-% %compute RMS
-% erms=sqrt(sum((plane'*X).^2)/size(X ,2))
-
 %% compute RANSAC
 iterations=10;
 nbr_of_inliers = zeros(iterations,1);
@@ -62,3 +50,45 @@ erms_inliers
 figure;
 histogram(abs(plane_inliers'*X_inliers),100)
 title('Least squares')
+
+%% Homography
+v=pflat(K\P{1}*X);
+u=pflat(K\P{2}*X);
+
+Pnorm{1}=K\P{1};
+Pnorm{2}=K\P{2};
+R=Pnorm{2}(1:3,1:3);
+t=Pnorm{2}(:,4);
+pi=pflat(plane_inliers);
+H = (R-t*pi(1:3)')
+% 
+% 
+% % create M matrix
+%     M=zeros(size(v,2)*3,3*size(v,1)+size(v,2));
+% for i=1:size(v,2)
+%     M(3*(i-1)+1,1:size(v,1))=[v(:,i)]';
+%     M(3*(i-1)+2,size(v,1)+1:2*size(v,1))=[v(:,i)]';
+%     M(3*i,2*size(v,1)+1:3*size(v,1))=[v(:,i)]';
+%     M(3*(i-1)+1:3*i,size(v,1).^2+i)=-u(:,i);
+% end
+% 
+% % perfom svd
+% 
+% [U,S,V]=svd(M);
+% vsolution=(V(:,end));
+% H=[vsolution(1:3)';vsolution(4:6)';vsolution(7:9)'];
+% H=H./H(end);
+
+homo=pflat(H*v);
+up=K*u;
+vp=K*homo;
+
+mean(mean(vp-up))
+
+figure;
+plot(up(1,:),up(2,:),'ro');
+hold on
+plot(vp(1,:),vp(2,:),'g+')
+axis equal
+hold off
+
