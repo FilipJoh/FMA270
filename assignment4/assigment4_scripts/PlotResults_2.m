@@ -16,8 +16,6 @@ xB = fB(1:2,matches(2 ,:));
 %iterations=8;
 v=xA;
 u=xB;
-%nbr_of_inliers = zeros(iterations,1);
-%inliers_indices = cell(iterations,1);
 H= {};
 
 v=[v;ones(1,size(v,2))];
@@ -27,7 +25,7 @@ u=[u;ones(1,size(u,2))];
 i=1;
 
 nbr_of_inliers = zeros(1,1);
-inliers_indices = {}%cell(iterations,1);
+inliers_indices = {};
 
 while(max(nbr_of_inliers)<150)
 %for i=1:iterations
@@ -52,12 +50,10 @@ end
 best_match = find(nbr_of_inliers == max(nbr_of_inliers));
 best_match = best_match(1);
 max_inliers = nbr_of_inliers(best_match);
+i
 
-%for j=1:4
+%perform stiching using H
 bestH=H{best_match}
-%bestH=H{j};
-
-
 tform = maketform('projective', bestH');
 transfbounds = findbounds(tform ,[1 1; size(A ,2) size(A ,1)]);
 xdata =[ min([transfbounds(: ,1); 1]) max([ transfbounds(: ,1); size(B ,2)])];
@@ -69,10 +65,10 @@ tform2 = maketform('projective', eye(3));
 
 newAB = newB ;
 newAB ( newB < newA ) = newA ( newB < newA );
-
+%display stiching
 figure;
 imshow(newAB)
-i
-%end
+
+
 
 

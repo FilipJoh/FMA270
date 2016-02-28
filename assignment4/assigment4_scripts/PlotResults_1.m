@@ -53,6 +53,28 @@ figure;
 histogram(abs(plane_inliers'*X_inliers),100)
 title('Least squares')
 
+
+%% projections of inlier 3D-points
+
+inliers_in_images=cell(2,1);
+for j=1:2
+   inliers_in_images{j}=pflat(P{j}*X_inliers);
+end
+
+%Plot results
+figure;
+imshow(im1);
+hold on
+plot(inliers_in_images{1}(1,:),inliers_in_images{1}(2,:),'b.','markersize', 20)
+hold off
+
+figure;
+imshow(im2);
+hold on
+plot(inliers_in_images{2}(1,:),inliers_in_images{2}(2,:),'b.','markersize', 20)
+hold off
+
+
 %% Homography
 v=pflat(K\P{1}*X);
 u=pflat(K\P{2}*X);
@@ -74,8 +96,8 @@ figure;
 imshow(im2);
 hold on
 plot(up(1,:),up(2,:),'bo');
-
-plot(vp(1,:),vp(2,:),'g+')
-axis equal
+plot(vp(1,:),vp(2,:),'g+');
+legend(['3D-points projected into camera 2'], ['3D-points projected to camera 2, transformed to camera 2 via Homography'])
+%axis equal
 hold off
 
