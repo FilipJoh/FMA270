@@ -108,7 +108,7 @@ data = [];
 resnum = 0;
 B = [];
 %fprintf('\tSetting up system, camera: ');
-fprintf('\tSetting up system. ');
+%fprintf('\tSetting up system. ');
 %Allokera hela vektorn först två residualer för varje bild punkt
 resnr = 0;
 for i = 1:length(P);
