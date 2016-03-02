@@ -16,7 +16,7 @@ P={P1,P_2{2}};
 u=xtilde;
 U=X{2};
 
-lambda = 1;
+lambda = 0.000000000000000000000000001;
 iterations = 300;
 err=zeros(iterations,1);
 
