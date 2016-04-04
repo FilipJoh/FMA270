@@ -2,7 +2,7 @@ function [F] = createF(xtilde,x)
 %create the M-matrix
 M=createM(xtilde,x);
 [U,S,V]=svd(M);
-
+F={};
 %Extract the last and second last columns of V
 v0=V(:,end);
 v1=V(:,end-1);
@@ -26,5 +26,7 @@ v1=V(:,end-1);
         determinants(i)=[abs(det(F0+b(i)*F1))];
     end
     bindex=find(determinants==min(determinants));
-    F=F0+b(bindex(1))*F1;
+    for k=1:size(bindex)
+        F{k}=F0+b(bindex(k))*F1;
+    end
 end
